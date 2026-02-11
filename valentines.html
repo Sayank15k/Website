@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .heart {
+            color: #ff4757;
+            font-size: 80px;
+            animation: heartbeat 1.5s infinite;
+            display: inline-block;
+        }
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            10%, 30% {
+                transform: scale(1.1);
+            }
+            20%, 40% {
+                transform: scale(1.05);
+            }
+        }
+        h1 {
+            color: #ff4757;
+            font-size: 48px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        .photo-frame {
+            position: relative;
+            background: white;
+            padding: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .photo-frame:nth-child(odd) {
+            transform: rotate(-2deg);
+        }
+        .photo-frame:nth-child(even) {
+            transform: rotate(2deg);
+        }
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.08);
+            z-index: 10;
+            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.4);
+        }
+        .photo-placeholder {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #ff6b6b 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .photo-caption {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #2d3436;
+            font-family: 'Courier New', monospace;
+        }
+        .thoughts-section {
+            text-align: left;
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(to bottom, #fff5f5, #ffe8e8);
+            border-radius: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .thoughts-section h2 {
+            color: #ff4757;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        .thought-item {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 5px solid #ff4757;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.6s ease;
+            line-height: 1.8;
+            font-size: 17px;
+            color: #2d3436;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .thought-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 6px 15px rgba(255, 71, 87, 0.3);
+            background: linear-gradient(135deg, #fff, #fff5f5);
+        }
+        .thought-icon {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            opacity: 0.7;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .question {
+            font-size: 36px;
+            color: #ff4757;
+            margin: 40px 0 30px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0;
+            position: relative;
+            min-height: 80px;
+        }
+        .btn {
+            padding: 20px 50px;
+            font-size: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+            color: white;
+            position: relative;
+            z-index: 100;
+        }
+        .btn-yes:hover {
+            transform: scale(1.15) translateY(-8px);
+            box-shadow: 0 15px 40px rgba(255, 71, 87, 0.6);
+        }
+        .btn-no {
+            background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%);
+            color: white;
+            position: relative;
+            transition: all 0.1s ease;
+        }
+        .btn-no.running {
+            position: absolute;
+        }
+        .hidden {
+            display: none;
+        }
+        .response {
+            margin-top: 40px;
+            padding: 40px;
+            border-radius: 20px;
+            animation: zoomIn 0.6s ease;
+        }
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .response-yes {
+            background: linear-gradient(135deg, #ffeaa7 0%, #ff6b6b 100%);
+        }
+        .response-yes h2 {
+            color: white;
+            font-size: 42px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .response-yes p {
+            color: white;
+            font-size: 22px;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1000;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float 6s infinite;
+            opacity: 0;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 1.5s infinite;
+        }
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .countdown-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .countdown-container h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 80px;
+        }
+        .countdown-number {
+            font-size: 36px;
+            font-weight: bold;
+            display: block;
+        }
+        .countdown-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .surprise-box {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            animation: surpriseReveal 1s ease;
+        }
+        @keyframes surpriseReveal {
+            0% {
+                opacity: 0;
+                transform: rotateX(-90deg);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateX(0);
+            }
+        }
+        .surprise-box h3 {
+            color: white;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .surprise-message {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 15px 0;
+            font-size: 18px;
+            color: #2d3436;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: slideIn 0.8s ease;
+        }
+        .secret-gallery {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(to bottom, #fff5f5, #ffe8e8);
+            border-radius: 20px;
+        }
+        .secret-gallery h3 {
+            color: #ff4757;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear forwards;
+        }
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        .love-letter {
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 3px solid #ff4757;
+            animation: letterOpen 1s ease;
+        }
+        @keyframes letterOpen {
+            0% {
+                transform: scale(0.5) rotateX(90deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotateX(0);
+                opacity: 1;
+            }
+        }
+        .love-letter p {
+            font-size: 20px;
+            line-height: 2;
+            color: #2d3436;
+            text-align: left;
+            margin: 15px 0;
+            font-family: 'Georgia', serif;
+        }
+        .pulse-heart {
+            display: inline-block;
+            animation: pulse-heart 1s infinite;
+        }
+        @keyframes pulse-heart {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.3);
+            }
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+            .question {
+                font-size: 28px;
+            }
+            .btn {
+                padding: 15px 35px;
+                font-size: 18px;
+            }
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                gap: 15px;
+            }
+            .photo-placeholder {
+                height: 130px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="heartsContainer"></div>
+    
+    <div class="container">
+        <div class="card">
+            <div class="heart">💖</div>
+            <h1>Happy Valentine's Day!</h1>
+            
+            <!-- Initial Photo Gallery (15 photos) -->
+            <div class="gallery" id="initialGallery">
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 1.jpeg" alt="Memory 1" onerror="this.style.display='none'; this.parentElement.innerHTML='📸';">
+                    </div>
+                    <div class="photo-caption">Our beginning</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 2.jpeg" alt="Memory 2" onerror="this.style.display='none'; this.parentElement.innerHTML='💑';">
+                    </div>
+                    <div class="photo-caption">First smiles</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 3.jpeg" alt="Memory 3" onerror="this.style.display='none'; this.parentElement.innerHTML='🌹';">
+                    </div>
+                    <div class="photo-caption">Special day</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 4.jpeg" alt="Memory 4" onerror="this.style.display='none'; this.parentElement.innerHTML='❤️';">
+                    </div>
+                    <div class="photo-caption">Together</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 5.jpeg" alt="Memory 5" onerror="this.style.display='none'; this.parentElement.innerHTML='😊';">
+                    </div>
+                    <div class="photo-caption">Happy us</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 6.jpeg" alt="Memory 6" onerror="this.style.display='none'; this.parentElement.innerHTML='💕';">
+                    </div>
+                    <div class="photo-caption">Sweet moments</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 7.jpeg" alt="Memory 7" onerror="this.style.display='none'; this.parentElement.innerHTML='✨';">
+                    </div>
+                    <div class="photo-caption">Our story</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 8.jpeg" alt="Memory 8" onerror="this.style.display='none'; this.parentElement.innerHTML='🎈';">
+                    </div>
+                    <div class="photo-caption">Celebrations</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 9.jpeg" alt="Memory 9" onerror="this.style.display='none'; this.parentElement.innerHTML='🌟';">
+                    </div>
+                    <div class="photo-caption">Shining times</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 10.jpeg" alt="Memory 10" onerror="this.style.display='none'; this.parentElement.innerHTML='💫';">
+                    </div>
+                    <div class="photo-caption">Magic moments</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 11.jpeg" alt="Memory 11" onerror="this.style.display='none'; this.parentElement.innerHTML='🎭';">
+                    </div>
+                    <div class="photo-caption">Fun times</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 12.jpeg" alt="Memory 12" onerror="this.style.display='none'; this.parentElement.innerHTML='🌺';">
+                    </div>
+                    <div class="photo-caption">Beautiful days</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 13.jpeg" alt="Memory 13" onerror="this.style.display='none'; this.parentElement.innerHTML='🎪';">
+                    </div>
+                    <div class="photo-caption">Adventures</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 14.jpeg" alt="Memory 14" onerror="this.style.display='none'; this.parentElement.innerHTML='🎨';">
+                    </div>
+                    <div class="photo-caption">Creating memories</div>
+                </div>
+                <div class="photo-frame">
+                    <div class="photo-placeholder">
+                        <img src="img 15.jpeg" alt="Memory 15" onerror="this.style.display='none'; this.parentElement.innerHTML='🎭';">
+                    </div>
+                    <div class="photo-caption">Us forever</div>
+                </div>
+            </div>
+
+            <!-- Thoughts Section -->
+            <div class="thoughts-section">
+                <h2>My Heart Speaks <span class="sparkle">✨</span></h2>
+                
+                <div class="thought-item">
+                    <span class="thought-icon">💫</span>
+                    Every day spending with you is so much special. Without you I am nothing, my precious gem.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">🌟</span>
+                    I found you after so many hurdles, and I will do so many hurdles to keep you. Just stand by my side.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">💝</span>
+                    I will try to give you all the happiness and also my share of happiness.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">☀️</span>
+                    I love to start my day with a lovely conversation with you over the call. My mood depends on that call.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">😊</span>
+                    I try to do everything that makes you smile when you are upset.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">💪</span>
+                    I know I am not that kind of person you want or you expect, but I try to be that one. I try so hard to become the person you want. I just need to be with you.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">🍽️</span>
+                    Amader eksthe khete jawa, eksthe ghure berano, tor golaye gaan, tor golaye misti kore amaye kichu bola - egulo amar jekono dinke happy kore tole.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">🤝</span>
+                    Tor future e somosto situation e ami achi. Tor kharap dineo amaye add koris, tor bhalo dineo.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">💭</span>
+                    Jani majhe majhe misunderstood hoyi, but bissas kor toke intentionally hurt korte chaina.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">🎁</span>
+                    Jiboner somosto khusi tor kache asuk. Sob ichhe puron hok.
+                </div>
+
+                <div class="thought-item">
+                    <span class="thought-icon">👫</span>
+                    Tor CHODU tor sathei ache always. Tor pase ache always.
+                </div>
+            </div>
+
+            <div class="question">
+                Will you be my Valentine? 💕
+            </div>
+            
+            <div class="buttons" id="buttonContainer">
+                <button class="btn btn-yes" onclick="showResponse()">
+                    Yes! Forever & Always 💖
+                </button>
+                <button class="btn btn-no" id="noButton" onmouseover="runAway()" ontouchstart="runAway()">
+                    Maybe not... 💔
+                </button>
+            </div>
+            
+            <div id="responseContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        // Make "No" button run away from cursor
+        let noButton = document.getElementById('noButton');
+        let runCount = 0;
+        let isRunning = false;
+        
+        function runAway() {
+            if (!isRunning) {
+                noButton.classList.add('running');
+                isRunning = true;
+            }
+            
+            runCount++;
+            const container = document.getElementById('buttonContainer');
+            const containerRect = container.getBoundingClientRect();
+            
+            // Random position within a larger area
+            const randomX = Math.random() * (containerRect.width - 200);
+            const randomY = Math.random() * 300 - 150;
+            
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+            
+            // Change button text to get more desperate
+            const desperateMessages = [
+                "Wait, think again! 💔",
+                "Please reconsider! 🥺",
+                "Are you sure? 😢",
+                "Just one chance! 💝",
+                "You can't catch me! 😏",
+                "Still trying? 😄",
+                "Give up? Say YES! 💕",
+                "I'll keep running! 🏃",
+                "YES is easier! 💖",
+                "Just click YES already! 😊"
+            ];
+            
+            if (runCount <= desperateMessages.length) {
+                noButton.textContent = desperateMessages[runCount - 1];
+            }
+            
+            // Make "Yes" button grow bigger each time
+            const yesButton = document.querySelector('.btn-yes');
+            const currentScale = 1 + (runCount * 0.05);
+            yesButton.style.transform = `scale(${currentScale})`;
+        }
+
+        // Create floating hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            const hearts = ['💕', '💖', '💗', '💓', '💝', '❤️', '💞', '💘'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('heartsContainer').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 8000);
+        }
+
+        // Create hearts periodically
+        setInterval(createHeart, 800);
+
+        // Create confetti
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#00d2d3'];
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 3000);
+                }, i * 30);
+            }
+        }
+
+        // Countdown to Saturday
+        function updateCountdown() {
+            const now = new Date();
+            const saturday = new Date();
+            
+            // Find next Saturday
+            const daysUntilSaturday = (6 - now.getDay() + 7) % 7 || 7;
+            saturday.setDate(now.getDate() + daysUntilSaturday);
+            saturday.setHours(18, 0, 0, 0); // 6 PM
+            
+            const diff = saturday - now;
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            return { days, hours, minutes, seconds };
+        }
+
+        // Show response when YES is clicked
+        function showResponse() {
+            const container = document.getElementById('responseContainer');
+            const buttonContainer = document.getElementById('buttonContainer');
+            
+            buttonContainer.classList.add('hidden');
+            
+            // Create massive confetti celebration
+            createConfetti();
+            setTimeout(createConfetti, 1000);
+            setTimeout(createConfetti, 2000);
+            
+            // Create lots of hearts
+            for (let i = 0; i < 100; i++) {
+                setTimeout(createHeart, i * 50);
+            }
+            
+            const countdown = updateCountdown();
+            
+            container.innerHTML = `
+                <div class="response response-yes">
+                    <h2>🎉 YOU SAID YES! 🎉</h2>
+                    <p style="font-size: 28px; margin: 20px 0;">
+                        <span class="pulse-heart">💖</span> THIS IS THE HAPPIEST MOMENT! <span class="pulse-heart">💖</span>
+                    </p>
+                    <p>My heart is literally exploding with joy right now!</p>
+                    <p>You just made me the luckiest person in the entire universe! 🌟</p>
+                </div>
+
+                <div class="countdown-container">
+                    <h3>🗓️ Counting Down to OUR Special Celebration 🗓️</h3>
+                    <p style="font-size: 20px; margin-bottom: 20px;">This Saturday Evening at 6 PM</p>
+                    <div class="countdown" id="countdown">
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="days">${countdown.days}</span>
+                            <span class="countdown-label">Days</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="hours">${countdown.hours}</span>
+                            <span class="countdown-label">Hours</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="minutes">${countdown.minutes}</span>
+                            <span class="countdown-label">Minutes</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number" id="seconds">${countdown.seconds}</span>
+                            <span class="countdown-label">Seconds</span>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px; font-size: 18px;">Until we celebrate this magical moment together! 💕</p>
+                </div>
+
+                <div class="surprise-box">
+                    <h3>🎁 SURPRISE #1: Secret Messages Unlocked! 🎁</h3>
+                    <div class="surprise-message">
+                        <strong>💌 Promise #1:</strong> I promise to make every Saturday our mini-celebration day, where we create new memories together.
+                    </div>
+                    <div class="surprise-message">
+                        <strong>🌟 Promise #2:</strong> Ami always jekono situation e toke happy rakhar chesta korbo. Tor pase thakbo, always.
+                    </div>
+                    <div class="surprise-message">
+                        <strong>💝 Promise #3:</strong> On our toughest days, I'll be your loudest cheerleader and softest comfort.
+                    </div>
+                    <div class="surprise-message">
+                        <strong>🎵 Promise #4:</strong> Notun Notun jayga explore korbo.. Pahar dekhbo eksthe.. Pahare surjodoy dekhbo.. milky way dekhbo.. Somosto Planning e Tui...
+                    </div>
+                    <div class="surprise-message">
+                        <strong>🌈 Promise #5:</strong> Every time you doubt yourself, I'll remind you of how incredible you are until you believe it too.
+                    </div>
+                </div>
+
+                <div class="love-letter">
+                    <h3 style="color: #ff4757; text-align: center; margin-bottom: 20px;">💌 A Letter From My Heart 💌</h3>
+                    <p>My dear Pokai sona,</p>
+                    <p>So... you said yes! And honestly, I'm still smiling like an idiot. You have no idea what this means to me.</p>
+                    <p>I know I'm not perfect. I mess up sometimes, say the wrong things, do things that probably annoy you. But you? You still chose me. And that's everything.</p>
+                    <p>This Saturday isn't just about Valentine's Day for me. It's about celebrating US—all our stupid jokes, late night conversations, the way you make even boring days feel special.</p>
+                    <p>Toke niye amar shopno just relationship er modhhe shesh na. Ami chai amra eksathe thaki, eksathe buro hoi, eksathe prottekta moment ke special kore tuli. Tor sathe thakle life ta complete mone hoy.</p>
+                    <p>You know what's crazy? You make me want to be better. Not because I have to, but because you make me believe I can be. That's it.</p>
+                    <p>Thank you for saying yes. Thank you for being patient with me. Thank you for being YOU.</p>
+                    <p><strong>My precious GEM... I LOVE YOU THE MOST.</strong></p>
+                    <p style="text-align: right; margin-top: 30px;">Always yours,<br>Your CHODU 💖</p>
+                </div>
+
+                <div class="secret-gallery">
+                    <h3>📸 SURPRISE #2: Special Memories Unlocked! 📸</h3>
+                    <p style="text-align: center; font-size: 18px; color: #ff4757; margin-bottom: 20px;">
+                        Here are 10 more precious moments just for you! 💕
+                    </p>
+                    <div class="gallery" id="secretGallery">
+                        ${generateSecretGallery()}
+                    </div>
+                </div>
+
+                <div class="surprise-box" style="background: linear-gradient(135deg, #a8e6cf, #dcedc1);">
+                    <h3 style="color: #2d3436;">🎯 SURPRISE #3: Our Saturday Plans Revealed! 🎯</h3>
+                    <div class="surprise-message">
+                        <strong>🌆 6:00 PM:</strong> Our celebration begins! Dress in something that makes you feel special.
+                    </div>
+                    <div class="surprise-message">
+                        <strong>💐 6:15 PM:</strong> I'll have a surprise gift waiting for you (hint: it's something you mentioned wanting!)
+                    </div>
+                    <div class="surprise-message">
+                        <strong>🍽️ 6:30 PM:</strong> Dinner at your favorite spot (or somewhere new if you're feeling adventurous!)
+                    </div>
+                    <div class="surprise-message">
+                        <strong>🎵 8:00 PM:</strong> Our best moment going, having your favourite hot chocolate and clicking lovable pictures with your cute smiles
+                    </div>
+                    <div class="surprise-message">
+                        <strong>✨ 9:30 PM:</strong> The bike ride, plz amake pichon theke joriye dhor,, jodi din ta bhalo giye thake, tahole video tol agher moto amar pithe matha rekhe! I guess tor jnno perfect valentines day banate perechi kichuta.. 🤫
+                    </div>
+                </div>
+
+                <div class="response response-yes" style="margin-top: 30px;">
+                    <h2 style="font-size: 36px;">💖 ONE MORE THING... 💖</h2>
+                    <p style="font-size: 24px; line-height: 2;">
+                        Every day forward, you're not just my Valentine.<br>
+                        You're my always, my forever, my everything.<br>
+                        Amake choose korar jonno dhonnobad.<br>
+                        I promise to make it worth it. Every. Single. Day.
+                    </p>
+                    <p style="font-size: 48px; margin-top: 30px;">
+                        I LOVE YOU! ❤️‍🔥
+                    </p>
+                    <p style="font-size: 20px; margin-top: 20px;">
+                        See you Saturday evening, my Valentine! 🌹<br>
+                        Can't wait to celebrate US! 🎉
+                    </p>
+                </div>
+            `;
+
+            // Start countdown timer
+            setInterval(() => {
+                const time = updateCountdown();
+                document.getElementById('days').textContent = time.days;
+                document.getElementById('hours').textContent = time.hours;
+                document.getElementById('minutes').textContent = time.minutes;
+                document.getElementById('seconds').textContent = time.seconds;
+            }, 1000);
+        }
+
+        function generateSecretGallery() {
+            let html = '';
+            for (let i = 16; i <= 25; i++) {
+                const captions = [
+                    'Our day', 'Candid laughter', 'Sunset together', 
+                    'Silly moments', 'Best Sunset', 'My favourite picture',
+                    'Dancing hearts', 'Weekend vibes', 'Crazy us', 'Forever mood'
+                ];
+                html += `
+                    <div class="photo-frame">
+                        <div class="photo-placeholder">
+                            <img src="img ${i}.jpeg" alt="Secret Memory ${i-15}" onerror="this.style.display='none'; this.parentElement.innerHTML='💕';">
+                        </div>
+                        <div class="photo-caption">${captions[i-16]}</div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // Add smooth scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            const thoughtsSection = document.querySelector('.thoughts-section');
+            if (thoughtsSection) {
+                thoughtsSection.style.scrollBehavior = 'smooth';
+            }
+        });
+    </script>
+</body>
+</html>
